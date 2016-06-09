@@ -9,20 +9,18 @@ public class Anagram {
 
 	public static void main(String[] args) {
 
-		@SuppressWarnings("resource")
-		Scanner input = new Scanner(System.in);
 		System.out.println("Enter sentence to convert");
+		Scanner input = new Scanner(System.in);
 		String sentence = input.nextLine();
-		StringBuilder anagram = new StringBuilder();
+		input.close();
 
+		StringBuilder anagram = new StringBuilder();
 		String[] words = sentence.split(" ");
 
 		for (int i = 0; i < words.length; i++) {
 			anagram.append(reverseLetters(words[i]) + " ");
 		}
-
 		System.out.println(anagram);
-
 	}
 
 	public static String reverseLetters(String word) {
@@ -35,13 +33,13 @@ public class Anagram {
 
 			if (Character.isLetter(current)) {
 				letters.push(current);
+				//'L' is for Letter
 				symbols.add('L');
 
 			} else {
 				symbols.add(current);
 			}
 		}
-
 		for (char current : symbols) {
 			if (current == 'L') {
 				reversed.append(letters.pop());
