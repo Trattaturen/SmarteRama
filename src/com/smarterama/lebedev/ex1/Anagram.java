@@ -21,17 +21,17 @@ public class Anagram {
 	}
 
 	public static String simpleReverse(String word) {
-		char[] array = word.toCharArray();
+		char[] letters = word.toCharArray();
 		int lIndex = 0;
-		int rIndex = array.length - 1;
+		int rIndex = letters.length - 1;
 		
 		while (lIndex < rIndex) {
 			
-			if (Character.isLetter(array[lIndex])) {
-				if (Character.isLetter(array[rIndex])) {
-					char temp = array[rIndex];
-					array[rIndex] = array[lIndex];
-					array[lIndex] = temp;
+			if (Character.isLetter(letters[lIndex])) {
+				if (Character.isLetter(letters[rIndex])) {
+					char temp = letters[rIndex];
+					letters[rIndex] = letters[lIndex];
+					letters[lIndex] = temp;
 					lIndex++;
 					rIndex--;
 				} else {
@@ -42,7 +42,7 @@ public class Anagram {
 			}
 		}
 
-		return new String(array);
+		return new String(letters);
 	}
 
 }
