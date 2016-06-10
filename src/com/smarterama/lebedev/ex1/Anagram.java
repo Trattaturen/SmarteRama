@@ -15,35 +15,34 @@ public class Anagram {
 		String[] words = sentence.split(" ");
 
 		for (int i = 0; i < words.length; i++) {
-			anagram.append(reverseLetters(words[i]) + " ");
+			anagram.append(simpleReverse(words[i]) + " ");
 		}
 		System.out.println(anagram);
 	}
 
-	public static String reverseLetters(String word) {
-		char[] original = word.toCharArray();
-		char[] reversed = new char[original.length];
-		int rightBorder = original.length - 1;
+	public static String simpleReverse(String word) {
+		char[] array = word.toCharArray();
+		int lBorder = 0;
+		int rBorder = array.length - 1;
 		
-		for (int i = 0; i < original.length; i++) {
-			if (!Character.isLetter(original[i])) {
-				reversed[i] = original[i];
-			}
-		}
-		
-		for (int j = 0; j < original.length; j++) {
-			if (Character.isLetter(original[j])) {
-				if (reversed[rightBorder] == '\0') {
-					reversed[rightBorder] = original[j];
+		while (lBorder < rBorder) {
+			
+			if (Character.isLetter(array[lBorder])) {
+				if (Character.isLetter(array[rBorder])) {
+					char temp = array[rBorder];
+					array[rBorder] = array[lBorder];
+					array[lBorder] = temp;
+					lBorder++;
+					rBorder--;
 				} else {
-					while (reversed[rightBorder] != '\0') {
-						rightBorder--;
-					}
-					reversed[rightBorder] = original[j];
+					rBorder--;
 				}
+			} else {
+				lBorder++;
 			}
 		}
-		
-		return new String(reversed);
+
+		return new String(array);
 	}
+
 }
