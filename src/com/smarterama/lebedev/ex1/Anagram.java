@@ -1,9 +1,6 @@
 package com.smarterama.lebedev.ex1;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-import java.util.Stack;
 
 public class Anagram {
 
@@ -24,29 +21,29 @@ public class Anagram {
 	}
 
 	public static String reverseLetters(String word) {
-
-		StringBuilder reversed = new StringBuilder();
-		List<Character> symbols = new ArrayList<Character>();
-		Stack<Character> letters = new Stack<Character>();
-		for (int j = 0; j < word.length(); j++) {
-			char current = word.charAt(j);
-
-			if (Character.isLetter(current)) {
-				letters.push(current);
-				//'L' is for Letter
-				symbols.add('L');
-
-			} else {
-				symbols.add(current);
+		char[] origin = word.toCharArray();
+		char[] reversed = new char[origin.length];
+		int right = origin.length - 1;
+		
+		for (int i = 0; i < origin.length; i++) {
+			if (!Character.isLetter(origin[i])) {
+				reversed[i] = origin[i];
 			}
 		}
-		for (char current : symbols) {
-			if (current == 'L') {
-				reversed.append(letters.pop());
-			} else {
-				reversed.append(current);
+		
+		for (int j = 0; j < origin.length; j++) {
+			if (Character.isLetter(origin[j])) {
+				if (reversed[right] == '\0') {
+					reversed[right] = origin[j];
+				} else {
+					while (reversed[right] != '\0') {
+						right--;
+					}
+					reversed[right] = origin[j];
+				}
 			}
 		}
-		return reversed.toString();
+		
+		return new String(reversed);
 	}
 }
