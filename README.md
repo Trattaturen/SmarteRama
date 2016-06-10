@@ -1,6 +1,6 @@
 The anagram class works as follows:
 
-- Get the input sentences
+- Get the input sentence
 - Split sentence into words
 - Reverse all letters in each words:
 	- Break a word into Char array

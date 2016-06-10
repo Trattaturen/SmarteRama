@@ -22,23 +22,23 @@ public class Anagram {
 
 	public static String simpleReverse(String word) {
 		char[] array = word.toCharArray();
-		int lBorder = 0;
-		int rBorder = array.length - 1;
+		int lIndex = 0;
+		int rIndex = array.length - 1;
 		
-		while (lBorder < rBorder) {
+		while (lIndex < rIndex) {
 			
-			if (Character.isLetter(array[lBorder])) {
-				if (Character.isLetter(array[rBorder])) {
-					char temp = array[rBorder];
-					array[rBorder] = array[lBorder];
-					array[lBorder] = temp;
-					lBorder++;
-					rBorder--;
+			if (Character.isLetter(array[lIndex])) {
+				if (Character.isLetter(array[rIndex])) {
+					char temp = array[rIndex];
+					array[rIndex] = array[lIndex];
+					array[lIndex] = temp;
+					lIndex++;
+					rIndex--;
 				} else {
-					rBorder--;
+					rIndex--;
 				}
 			} else {
-				lBorder++;
+				lIndex++;
 			}
 		}
 
