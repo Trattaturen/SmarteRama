@@ -21,25 +21,25 @@ public class Anagram {
 	}
 
 	public static String reverseLetters(String word) {
-		char[] origin = word.toCharArray();
-		char[] reversed = new char[origin.length];
-		int right = origin.length - 1;
+		char[] original = word.toCharArray();
+		char[] reversed = new char[original.length];
+		int rightBorder = original.length - 1;
 		
-		for (int i = 0; i < origin.length; i++) {
-			if (!Character.isLetter(origin[i])) {
-				reversed[i] = origin[i];
+		for (int i = 0; i < original.length; i++) {
+			if (!Character.isLetter(original[i])) {
+				reversed[i] = original[i];
 			}
 		}
 		
-		for (int j = 0; j < origin.length; j++) {
-			if (Character.isLetter(origin[j])) {
-				if (reversed[right] == '\0') {
-					reversed[right] = origin[j];
+		for (int j = 0; j < original.length; j++) {
+			if (Character.isLetter(original[j])) {
+				if (reversed[rightBorder] == '\0') {
+					reversed[rightBorder] = original[j];
 				} else {
-					while (reversed[right] != '\0') {
-						right--;
+					while (reversed[rightBorder] != '\0') {
+						rightBorder--;
 					}
-					reversed[right] = origin[j];
+					reversed[rightBorder] = original[j];
 				}
 			}
 		}
