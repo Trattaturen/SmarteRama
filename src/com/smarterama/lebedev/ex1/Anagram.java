@@ -46,7 +46,7 @@ public class Anagram {
 			}
 		}
 
-		return new String(letters);
+		return String.valueOf(letters);
 	}
 
 }
