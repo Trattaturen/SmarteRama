@@ -11,6 +11,9 @@ public class AnagramTest {
 		Assert.assertEquals("!@#$%ba", Anagram.simpleReverse("!@#$%ab"));
 		Assert.assertEquals("_amiD_", Anagram.simpleReverse("_Dima_"));
 		Assert.assertEquals(" ", Anagram.simpleReverse(" "));
+		Assert.assertEquals("!!!!!!", Anagram.simpleReverse("!!!!!!"));
+		Assert.assertEquals("!c!b!a!", Anagram.simpleReverse("!a!b!c!"));
+		Assert.assertEquals("!!!!!a!!!", Anagram.simpleReverse("!!!!!a!!!"));
 	}
 
 }
