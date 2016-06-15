@@ -3,7 +3,7 @@ package com.smarterama.lebedev.ex2;
 public class LongDivider {
 
 	private static final String NL = "\n";
-	private static final String WHITE_SPACE = "*";
+	private static final String WHITE_SPACE = " ";
 
 	StringBuilder task = new StringBuilder(WHITE_SPACE);
 	StringBuilder solution = new StringBuilder();
@@ -26,6 +26,10 @@ public class LongDivider {
 
 			long localResult;
 
+			if (currentDividend == 0) {
+				gap.append("*");
+			}
+
 			if (currentDividend >= divisor) {
 
 				if (index > 1) {
@@ -36,11 +40,11 @@ public class LongDivider {
 				localResult = currentDividend / divisor;
 				currentDividend = currentDividend % divisor;
 				solution.append(gap + String.valueOf((localResult * divisor)) + NL);
-				solution.append("---" + NL);
+				solution.append(gap + "---" + NL);
 				result.append(localResult);
 
 			} else if (currentDividend < divisor && index < dividendDigits.length - 1) {
-				
+
 				index++;
 				currentDividend = currentDividend * 10 + dividendDigits[index];
 
@@ -58,14 +62,14 @@ public class LongDivider {
 				if (index > 1) {
 					gap.append(WHITE_SPACE);
 				}
+
 				solution.append(gap + String.valueOf(currentDividend) + NL);
 				solution.append("-" + NL);
 				localResult = currentDividend / divisor;
 				currentDividend = currentDividend % divisor;
 				solution.append(gap + String.valueOf((localResult * divisor)) + NL);
-				solution.append("---" + NL);
+				solution.append(gap + "---" + NL);
 				result.append(localResult);
-				
 
 			} else {
 
@@ -74,7 +78,7 @@ public class LongDivider {
 			}
 		}
 		System.out.println(task);
-		System.out.println(gap + "   |" + result);
+		System.out.println(gap + "  |" + result);
 		System.out.println(solution);
 
 		return String.valueOf(result);
