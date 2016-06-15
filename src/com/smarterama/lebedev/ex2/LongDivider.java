@@ -3,8 +3,12 @@ package com.smarterama.lebedev.ex2;
 public class LongDivider {
 
 	private static final String NL = "\n";
+	private static final String WHITE_SPACE = "*";
 
-	StringBuilder result = new StringBuilder("");
+	StringBuilder task = new StringBuilder(WHITE_SPACE);
+	StringBuilder solution = new StringBuilder();
+	StringBuilder result = new StringBuilder();
+	StringBuilder gap = new StringBuilder(WHITE_SPACE);
 
 	public String divide(long dividend, long divisor) {
 
@@ -12,49 +16,67 @@ public class LongDivider {
 			return String.valueOf(result);
 		}
 
+		task.append(dividend + "|" + divisor);
+
 		long[] dividendDigits = convertToDigitsArray(dividend);
 		int index = String.valueOf(divisor).length() - 1;
 		long currentDividend = getInitialDividend(divisor, dividendDigits);
-		
-		System.out.println(dividend + " | " + divisor);
 
 		while (index <= dividendDigits.length) {
-			
-			long tempResult;
-			
+
+			long localResult;
+
 			if (currentDividend >= divisor) {
-				
-				tempResult = currentDividend / divisor;
+
+				if (index > 1) {
+					gap.append(WHITE_SPACE);
+				}
+				solution.append(gap + String.valueOf(currentDividend) + NL);
+				solution.append("-" + NL);
+				localResult = currentDividend / divisor;
 				currentDividend = currentDividend % divisor;
-				result.append(tempResult);
+				solution.append(gap + String.valueOf((localResult * divisor)) + NL);
+				solution.append("---" + NL);
+				result.append(localResult);
 
 			} else if (currentDividend < divisor && index < dividendDigits.length - 1) {
 				
 				index++;
 				currentDividend = currentDividend * 10 + dividendDigits[index];
-				
+
 				if (currentDividend < divisor) {
-					
+
 					while (currentDividend < divisor && index < dividendDigits.length - 1) {
-						
+
 						index++;
 						currentDividend = currentDividend * 10 + dividendDigits[index];
 						result.append(0);
+						gap.append(WHITE_SPACE);
 					}
 				}
-				
-				tempResult = currentDividend / divisor;
+
+				if (index > 1) {
+					gap.append(WHITE_SPACE);
+				}
+				solution.append(gap + String.valueOf(currentDividend) + NL);
+				solution.append("-" + NL);
+				localResult = currentDividend / divisor;
 				currentDividend = currentDividend % divisor;
-				result.append(tempResult);
+				solution.append(gap + String.valueOf((localResult * divisor)) + NL);
+				solution.append("---" + NL);
+				result.append(localResult);
+				
 
 			} else {
-				
-				System.out.println("Leftover = " + currentDividend);
+
+				solution.append(gap + String.valueOf(currentDividend));
 				break;
 			}
 		}
-		
-		System.out.println("Result = " + result);
+		System.out.println(task);
+		System.out.println(gap + "   |" + result);
+		System.out.println(solution);
+
 		return String.valueOf(result);
 	}
 
@@ -100,8 +122,10 @@ public class LongDivider {
 	}
 
 	private long getInitialDividend(long divisor, long[] dividendDigits) {
+
 		long initialDividend = 0;
 		int divisorLength = String.valueOf(divisor).length();
+
 		for (int i = 0; i < divisorLength; i++) {
 			initialDividend = initialDividend * 10 + dividendDigits[i];
 
@@ -110,14 +134,17 @@ public class LongDivider {
 	}
 
 	private long[] convertToDigitsArray(long dividentNumber) {
+
 		int dividentNumberLength = Long.toString(dividentNumber).length();
 		long[] dividentDigits = new long[dividentNumberLength];
 		int i = dividentNumberLength - 1;
-		do {
+
+		while (dividentNumber != 0) {
 			dividentDigits[i] = dividentNumber % 10;
 			dividentNumber /= 10;
 			i--;
-		} while (dividentNumber != 0);
+		}
+
 		return dividentDigits;
 	}
 }
