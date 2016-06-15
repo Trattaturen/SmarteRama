@@ -1,10 +1,10 @@
 package com.smarterama.lebedev.ex2;
 public class LongDivider {
 
-	public static void main(String[] args) {
+	public static int divide(int dividentNumber, int divisor) {
 
-		int dividentNumber = 100;
-		int divisor = 10;
+	
+		
 		int[] dividendDigits = convertToDigitsArray(dividentNumber);
 		StringBuilder result = new StringBuilder();
 		int index = String.valueOf(divisor).length() - 1;
@@ -38,6 +38,7 @@ public class LongDivider {
 			}
 		}
 		System.out.println("Result = " + result);
+		return Integer.parseInt(String.valueOf(result));
 	}
 
 	private static int getInitialDividend(int divisor, int[] dividendDigits) {
