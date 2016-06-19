@@ -22,6 +22,8 @@ public class LongDivider {
 		resultGap = new StringBuilder();
 		line = new StringBuilder();
 		
+		task.append(dividend + "|" + divisor);
+		
 		for (int i = 0; i < String.valueOf(dividend).length(); i++) {
 			resultGap.append(" ");
 			line.append("-");
@@ -34,7 +36,7 @@ public class LongDivider {
 			return String.valueOf(result);
 		}
 
-		task.append(dividend + "|" + divisor);
+		
 
 		long[] dividendDigits = convertToDigitsArray(dividend);
 		long currentDividend = getInitialDividend(divisor, dividendDigits);
