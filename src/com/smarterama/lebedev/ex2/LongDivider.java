@@ -2,45 +2,62 @@ package com.smarterama.lebedev.ex2;
 
 public class LongDivider {
 
-	private static final String NL = "\n";
-	private static final String WHITE_SPACE = " ";
+	private StringBuilder task;
+	private StringBuilder solution;
+	private StringBuilder result;
+	private StringBuilder gap;
+	private StringBuilder resultGap;
+	private StringBuilder line;
+	private long dividend;
+	private long divisor;
 
-	StringBuilder task = new StringBuilder(WHITE_SPACE);
-	StringBuilder solution = new StringBuilder();
-	StringBuilder result = new StringBuilder();
-	StringBuilder gap = new StringBuilder(WHITE_SPACE);
+	public LongDivider(long dividend, long divisor) {
 
-	public String divide(long dividend, long divisor) {
+		this.dividend = dividend;
+		this.divisor = divisor;
+		task = new StringBuilder();
+		solution = new StringBuilder();
+		result = new StringBuilder();
+		gap = new StringBuilder();
+		resultGap = new StringBuilder();
+		line = new StringBuilder();
+		
+		for (int i = 0; i < String.valueOf(dividend).length(); i++) {
+			resultGap.append(" ");
+			line.append("-");
+		}
+	}
 
-		if (!areParametersCorrect(dividend, divisor)) {
+	public String divide() {
+
+		if (!isGivenParametersCorrect(dividend, divisor)) {
 			return String.valueOf(result);
 		}
 
 		task.append(dividend + "|" + divisor);
 
 		long[] dividendDigits = convertToDigitsArray(dividend);
-		int index = String.valueOf(divisor).length() - 1;
 		long currentDividend = getInitialDividend(divisor, dividendDigits);
+
+		int index = String.valueOf(divisor).length() - 1;
 
 		while (index <= dividendDigits.length) {
 
 			long localResult;
 
 			if (currentDividend == 0) {
-				gap.append("*");
+				gap.append(" ");
 			}
 
 			if (currentDividend >= divisor) {
 
-				if (index > 1) {
-					gap.append(WHITE_SPACE);
-				}
-				solution.append(gap + String.valueOf(currentDividend) + NL);
-				solution.append("-" + NL);
+				solution.append(gap + String.valueOf(currentDividend) + "\n");
+				
 				localResult = currentDividend / divisor;
 				currentDividend = currentDividend % divisor;
-				solution.append(gap + String.valueOf((localResult * divisor)) + NL);
-				solution.append(gap + "---" + NL);
+				
+				solution.append(gap + String.valueOf((localResult * divisor)) + "\n");
+				solution.append(line + "\n");
 				result.append(localResult);
 
 			} else if (currentDividend < divisor && index < dividendDigits.length - 1) {
@@ -54,21 +71,22 @@ public class LongDivider {
 
 						index++;
 						currentDividend = currentDividend * 10 + dividendDigits[index];
+						
 						result.append(0);
-						gap.append(WHITE_SPACE);
+						gap.append(" ");
 					}
 				}
 
 				if (index > 1) {
-					gap.append(WHITE_SPACE);
+					gap.append(" ");
 				}
-
-				solution.append(gap + String.valueOf(currentDividend) + NL);
-				solution.append("-" + NL);
+				solution.append(gap + String.valueOf(currentDividend) + "\n");
+				
 				localResult = currentDividend / divisor;
 				currentDividend = currentDividend % divisor;
-				solution.append(gap + String.valueOf((localResult * divisor)) + NL);
-				solution.append(gap + "---" + NL);
+				
+				solution.append(gap + String.valueOf((localResult * divisor)) + "\n");
+				solution.append(line + "\n");
 				result.append(localResult);
 
 			} else {
@@ -77,26 +95,23 @@ public class LongDivider {
 				break;
 			}
 		}
-		System.out.println(task);
-		System.out.println(gap + "  |" + result);
-		System.out.println(solution);
-
+		draw();
 		return String.valueOf(result);
 	}
 
-	private boolean areParametersCorrect(long dividend, long divisor) {
+	private boolean isGivenParametersCorrect(long dividend, long divisor) {
 		try {
 			if (dividend < 0) {
 				throw new NumberFormatException("");
 			}
 
 			if (dividend == 0) {
-				result.append("Divident is zero. That makes no sense." + NL);
+				result.append("Divident is zero. That makes no sense." + "\n");
 				return false;
 			}
 
 		} catch (NumberFormatException e) {
-			result.append("Dividend \"" + dividend + "\" must be an positive integer." + NL);
+			result.append("Dividend \"" + dividend + "\" must be an positive integer." + "\n");
 			return false;
 		}
 
@@ -107,18 +122,18 @@ public class LongDivider {
 			}
 
 			if (divisor == 0) {
-				result.append("Divisor is zero. Division by zero not allowed." + NL);
+				result.append("Divisor is zero. Division by zero not allowed." + "\n");
 				return false;
 			}
 
 		} catch (NumberFormatException e) {
-			result.append("Divisor \"" + divisor + "\" must be an positive integer." + NL);
+			result.append("Divisor \"" + divisor + "\" must be an positive integer." + "\n");
 			return false;
 		}
 
 		if (dividend < divisor) {
-			result.append(("The dividend is less than the divisor (" + dividend + " < " + divisor + ")" + NL
-					+ "That makes no sense. The result is always zero." + NL));
+			result.append(("The dividend is less than the divisor (" + dividend + " < " + divisor + ")" + "\n"
+					+ "That makes no sense. The result is always zero." + "\n"));
 			return false;
 		}
 
@@ -150,5 +165,13 @@ public class LongDivider {
 		}
 
 		return dividentDigits;
+	}
+
+	private void draw() {
+
+		System.out.println(task);
+		System.out.println(resultGap + "|" + result);
+		System.out.println(solution);
+
 	}
 }

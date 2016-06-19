@@ -1,59 +1,61 @@
 package com.smarterama.lebedev.ex2;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 public class LongDividerTest {
-	
-	public static LongDivider divider;
-	
-	@Before
-	public void setUpBeforeTest() throws Exception {
-		   divider = new LongDivider();
-	}
 
-	
+	public static LongDivider divider;
+
 	@Test
 	public void testDivide_CorrectNumbers() {
-		Assert.assertEquals("170", divider.divide(512, 3));
-		
+		divider = new LongDivider(512, 3);
+		Assert.assertEquals("170", divider.divide());
+
 	}
+
 	@Test
 	public void testDivide_CorrectNumbers2() {
-		Assert.assertEquals("1763", divider.divide(12345, 7));
-		
+		divider = new LongDivider(12345, 7);
+		Assert.assertEquals("1763", divider.divide());
+
 	}
-	@Test
-	public void testDivide_CorrectNumbers3() {
-		Assert.assertEquals("4994001", divider.divide(99880020, 20));
-		
-	}
+
 	@Test
 	public void testDivide_CorrectNumbers4() {
-		Assert.assertEquals("112354849664658453", divider.divide(1460613045640559889L, 13));
-		
+		divider = new LongDivider(1460613045640559889L, 13);
+		Assert.assertEquals("112354849664658453", divider.divide());
+
 	}
+
 	@Test
 	public void testDivide_CorrectNumbers5() {
-		Assert.assertEquals("50000", divider.divide(100000, 2));
-		
+		divider = new LongDivider(100000, 2);
+		Assert.assertEquals("50000", divider.divide());
+
 	}
+
 	@Test
 	public void testDivideDividendIsZero() {
-		Assert.assertEquals("Divident is zero. That makes no sense.\n", divider.divide(0, 500));
-		
+		divider = new LongDivider(0, 500);
+		Assert.assertEquals("Divident is zero. That makes no sense.\n", divider.divide());
+
 	}
-	
+
 	@Test
 	public void testDivideDivisorIsZero() {
-		Assert.assertEquals("Divisor is zero. Division by zero not allowed.\n", divider.divide(7, 0));
-		
+		divider = new LongDivider(7, 0);
+		Assert.assertEquals("Divisor is zero. Division by zero not allowed.\n", divider.divide());
+
 	}
+
 	@Test
 	public void testDivideDividendLessThanDivisor() {
-		Assert.assertEquals("The dividend is less than the divisor (157 < 230)\nThat makes no sense. The result is always zero.\n", divider.divide(157, 230));
-		
+		divider = new LongDivider(157, 230);
+		Assert.assertEquals(
+				"The dividend is less than the divisor (157 < 230)\nThat makes no sense. The result is always zero.\n",
+				divider.divide());
+
 	}
 
 }
