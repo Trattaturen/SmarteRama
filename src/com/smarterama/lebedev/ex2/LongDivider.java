@@ -8,6 +8,7 @@ public class LongDivider {
 	private StringBuilder gap;
 	private StringBuilder resultGap;
 	private StringBuilder line;
+	private StringBuilder drawing;
 	private long dividend;
 	private long divisor;
 
@@ -21,9 +22,10 @@ public class LongDivider {
 		gap = new StringBuilder();
 		resultGap = new StringBuilder();
 		line = new StringBuilder();
-		
+		drawing = new StringBuilder();
+
 		task.append(dividend + "|" + divisor);
-		
+
 		for (int i = 0; i < String.valueOf(dividend).length(); i++) {
 			resultGap.append(" ");
 			line.append("-");
@@ -35,8 +37,6 @@ public class LongDivider {
 		if (!isGivenParametersCorrect(dividend, divisor)) {
 			return String.valueOf(result);
 		}
-
-		
 
 		long[] dividendDigits = convertToDigitsArray(dividend);
 		long currentDividend = getInitialDividend(divisor, dividendDigits);
@@ -54,10 +54,10 @@ public class LongDivider {
 			if (currentDividend >= divisor) {
 
 				solution.append(gap + String.valueOf(currentDividend) + "\n");
-				
+
 				localResult = currentDividend / divisor;
 				currentDividend = currentDividend % divisor;
-				
+
 				solution.append(gap + String.valueOf((localResult * divisor)) + "\n");
 				solution.append(line + "\n");
 				result.append(localResult);
@@ -73,7 +73,7 @@ public class LongDivider {
 
 						index++;
 						currentDividend = currentDividend * 10 + dividendDigits[index];
-						
+
 						result.append(0);
 						gap.append(" ");
 					}
@@ -83,10 +83,10 @@ public class LongDivider {
 					gap.append(" ");
 				}
 				solution.append(gap + String.valueOf(currentDividend) + "\n");
-				
+
 				localResult = currentDividend / divisor;
 				currentDividend = currentDividend % divisor;
-				
+
 				solution.append(gap + String.valueOf((localResult * divisor)) + "\n");
 				solution.append(line + "\n");
 				result.append(localResult);
@@ -97,7 +97,7 @@ public class LongDivider {
 				break;
 			}
 		}
-		draw();
+
 		return String.valueOf(result);
 	}
 
@@ -169,11 +169,20 @@ public class LongDivider {
 		return dividentDigits;
 	}
 
-	private void draw() {
+	public String draw() {
 
-		System.out.println(task);
-		System.out.println(resultGap + "|" + result);
-		System.out.println(solution);
+		if (result == null || result.toString().equals("")) {
 
+			drawing.append("You need to calculate first!");
+
+		} else {
+
+			drawing.append(task).append("\n");
+			drawing.append(resultGap).append("|").append(result).append("\n");
+			drawing.append(solution);
+		}
+
+		return String.valueOf(drawing);
 	}
+
 }

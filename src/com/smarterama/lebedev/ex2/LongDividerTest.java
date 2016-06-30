@@ -58,4 +58,19 @@ public class LongDividerTest {
 
 	}
 
+	@Test
+	public void testCorrectDrawing() {
+		divider = new LongDivider(313, 2);
+		divider.divide();
+		Assert.assertNotNull(divider.draw());
+
+	}
+
+	@Test
+	public void testIncorrectDrawing() {
+		divider = new LongDivider(700, 254);
+		Assert.assertEquals("You need to calculate first!", divider.draw());
+
+	}
+
 }
