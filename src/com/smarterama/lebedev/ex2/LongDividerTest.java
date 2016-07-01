@@ -10,14 +10,14 @@ public class LongDividerTest {
 	@Test
 	public void testDivide_CorrectNumbers() {
 		divider = new LongDivider(512, 3);
-		Assert.assertEquals("170", divider.divide());
+		Assert.assertEquals("170.(6)", divider.divide());
 
 	}
 
 	@Test
 	public void testDivide_CorrectNumbers2() {
 		divider = new LongDivider(12345, 7);
-		Assert.assertEquals("1763", divider.divide());
+		Assert.assertEquals("1763.(571428)", divider.divide());
 
 	}
 
@@ -32,6 +32,41 @@ public class LongDividerTest {
 	public void testDivide_CorrectNumbers5() {
 		divider = new LongDivider(100000, 2);
 		Assert.assertEquals("50000", divider.divide());
+
+	}
+
+	@Test
+	public void testDivide_CorrectNumbers6() {
+		divider = new LongDivider(632, 11);
+		Assert.assertEquals("57.(45)", divider.divide());
+
+	}
+	
+	@Test
+	public void testDivide_CorrectNumbers7() {
+		divider = new LongDivider(113, 17);
+		Assert.assertEquals("6.(6470588235)", divider.divide());
+
+	}
+
+	@Test
+	public void testDivide_CorrectNumbers8() {
+		divider = new LongDivider(1000, 3);
+		Assert.assertEquals("333.(3)", divider.divide());
+
+	}
+	
+	@Test
+	public void testDivide_CorrectNumbers9() {
+		divider = new LongDivider(120, 11);
+		Assert.assertEquals("10.(90)", divider.divide());
+
+	}
+	
+	@Test
+	public void testDivide_CorrectNumbers10() {
+		divider = new LongDivider(319, 9);
+		Assert.assertEquals("35.(4)", divider.divide());
 
 	}
 

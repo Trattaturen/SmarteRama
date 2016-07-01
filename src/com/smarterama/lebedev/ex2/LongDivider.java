@@ -94,6 +94,9 @@ public class LongDivider {
 			} else {
 
 				solution.append(gap + String.valueOf(currentDividend));
+				if (currentDividend != 0) {
+					result.append(findPeriod(currentDividend, divisor));
+				}
 				break;
 			}
 		}
@@ -185,4 +188,70 @@ public class LongDivider {
 		return String.valueOf(drawing);
 	}
 
+	public static String findPeriod(long currentDividend, long divisor) {
+		StringBuilder period = new StringBuilder();
+
+		long[] initialNumbers = { currentDividend, divisor };
+		long numerator = initialNumbers[0];
+		long denominator = initialNumbers[1];
+
+		long s = denominator % 2;
+		int lengthByTwo = 0;
+
+		while (s == 0) {
+			denominator = denominator / 2;
+			s = denominator % 2;
+			lengthByTwo++;
+		}
+
+		s = denominator % 5;
+		int lengthByFive = 0;
+
+		while (s == 0) {
+			denominator = denominator / 5;
+			s = denominator % 5;
+			lengthByFive++;
+		}
+
+		int periodLength = 1;
+		long r = 10;
+
+		while (r != 1 && periodLength < 10) {
+			r = (10 * r) % denominator;
+			if (r == 0) {
+				break;
+			}
+			periodLength++;
+		}
+
+		long beforePeriodLength;
+
+		if (lengthByFive > lengthByTwo) {
+			beforePeriodLength = lengthByFive;
+		} else {
+			beforePeriodLength = lengthByTwo;
+		}
+
+		denominator = initialNumbers[1];
+		period.append(".");
+		numerator = numerator % denominator;
+
+		for (int i = 0; i < beforePeriodLength; i++) {
+			period.append((numerator * 10) / denominator);
+			numerator = (numerator * 10) % denominator;
+		}
+		period.append("(");
+
+		for (int i = 0; i < periodLength; i++) {
+			period.append((numerator * 10) / denominator);
+			numerator = (numerator * 10) % denominator;
+		}
+
+		period.append(")");
+		//Ad hoc to clear periods with one digit
+		if (period.length() == 5 && period.charAt(2) == period.charAt(3)) {
+			period.deleteCharAt(2);
+		}
+		return new String(period);
+	}
 }
