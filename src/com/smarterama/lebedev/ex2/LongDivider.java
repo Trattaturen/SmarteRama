@@ -9,8 +9,10 @@ public class LongDivider {
 	private StringBuilder resultGap;
 	private StringBuilder line;
 	private StringBuilder drawing;
+	private StringBuilder period;
 	private long dividend;
 	private long divisor;
+	private long leftover;
 
 	public LongDivider(long dividend, long divisor) {
 
@@ -23,6 +25,7 @@ public class LongDivider {
 		resultGap = new StringBuilder();
 		line = new StringBuilder();
 		drawing = new StringBuilder();
+		period = new StringBuilder();
 
 		task.append(dividend + "|" + divisor);
 
@@ -95,7 +98,8 @@ public class LongDivider {
 
 				solution.append(gap + String.valueOf(currentDividend));
 				if (currentDividend != 0) {
-					result.append(findPeriod(currentDividend, divisor));
+					leftover = currentDividend;
+					result.append(findPeriod());
 				}
 				break;
 			}
@@ -188,10 +192,9 @@ public class LongDivider {
 		return String.valueOf(drawing);
 	}
 
-	public static String findPeriod(long currentDividend, long divisor) {
-		StringBuilder period = new StringBuilder();
+	public String findPeriod() {
 
-		long[] initialNumbers = { currentDividend, divisor };
+		long[] initialNumbers = { leftover, divisor };
 		long numerator = initialNumbers[0];
 		long denominator = initialNumbers[1];
 
@@ -224,34 +227,52 @@ public class LongDivider {
 			periodLength++;
 		}
 
-		long beforePeriodLength;
+		if (periodLength == 10) {
+			denominator = initialNumbers[1];
+			period.append(".");
+			for (int i = 0; i < periodLength; i++) {
+				period.append((numerator * 10) / denominator);
+				numerator = (numerator * 10) % denominator;
+			}
 
-		if (lengthByFive > lengthByTwo) {
-			beforePeriodLength = lengthByFive;
+			return new String(period);
+
 		} else {
-			beforePeriodLength = lengthByTwo;
-		}
 
-		denominator = initialNumbers[1];
-		period.append(".");
-		numerator = numerator % denominator;
+			long beforePeriodLength;
 
-		for (int i = 0; i < beforePeriodLength; i++) {
-			period.append((numerator * 10) / denominator);
-			numerator = (numerator * 10) % denominator;
-		}
-		period.append("(");
+			if (lengthByFive > lengthByTwo) {
+				beforePeriodLength = lengthByFive;
+			} else {
+				beforePeriodLength = lengthByTwo;
+			}
 
-		for (int i = 0; i < periodLength; i++) {
-			period.append((numerator * 10) / denominator);
-			numerator = (numerator * 10) % denominator;
-		}
+			denominator = initialNumbers[1];
+			period.append(".");
+			numerator = numerator % denominator;
 
-		period.append(")");
-		//Ad hoc to clear periods with one digit
-		if (period.length() == 5 && period.charAt(2) == period.charAt(3)) {
-			period.deleteCharAt(2);
+			for (int i = 0; i < beforePeriodLength; i++) {
+				period.append((numerator * 10) / denominator);
+				numerator = (numerator * 10) % denominator;
+			}
+			period.append("(");
+
+			for (int i = 0; i < periodLength; i++) {
+				period.append((numerator * 10) / denominator);
+				numerator = (numerator * 10) % denominator;
+			}
+
+			period.append(")");
+			// Ad hoc to clear periods with one digit
+			if (period.length() == 5 && period.charAt(2) == period.charAt(3)) {
+				period.deleteCharAt(2);
+			}
+			return new String(period);
 		}
+	}
+
+	// Just for test cases
+	public String getPeriod() {
 		return new String(period);
 	}
 }
