@@ -235,7 +235,7 @@ public class LongDivider {
 				numerator = (numerator * 10) % denominator;
 			}
 
-			return new String(period);
+			return String.valueOf(period);
 
 		} else {
 
@@ -267,12 +267,12 @@ public class LongDivider {
 			if (period.length() == 5 && period.charAt(2) == period.charAt(3)) {
 				period.deleteCharAt(2);
 			}
-			return new String(period);
+			return String.valueOf(period);
 		}
 	}
 
 	// Just for test cases
 	public String getPeriod() {
-		return new String(period);
+		return String.valueOf(period);
 	}
 }

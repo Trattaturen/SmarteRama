@@ -134,10 +134,18 @@ public class LongDividerTest {
 	}
 
 	@Test
-	public void testCorrectDrawing() {
+	public void testCorrectDrawing1() {
 		divider = new LongDivider(313, 2);
 		divider.divide();
-		Assert.assertNotNull(divider.draw());
+		Assert.assertEquals("313|2\n   |156.5(0)\n3\n2\n---\n11\n10\n---\n 13\n 12\n---\n 1", divider.draw());
+
+	}
+	
+	@Test
+	public void testCorrectDrawing2() {
+		divider = new LongDivider(765, 11);
+		divider.divide();
+		Assert.assertEquals("765|11\n   |69.(54)\n76\n66\n---\n 105\n 99\n---\n 6", divider.draw());
 
 	}
 
