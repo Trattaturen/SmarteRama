@@ -2,6 +2,7 @@ package com.smarterama.lebedev.ex2;
 
 public class LongDivider {
 
+	private final int PERIOD_CALCULATION_LIMIT = 10;
 	private long dividend;
 	private long divisor;
 	private StringBuilder solution;
@@ -14,21 +15,24 @@ public class LongDivider {
 
 	}
 
-	private boolean isDivisionPossible() {
+	private boolean isDivisionPossible(boolean periodEnabled) {
 		if (divisor == 0) {
 			solution.append("You cannot divide by 0!");
 			return false;
 		} else if (dividend < 0 || divisor < 0) {
 			solution.append("Division of only possitive numbers is supported!");
 			return false;
+		} else if (!periodEnabled && dividend < divisor) {
+			solution.append("Dividend is less then divisor. Result is always 0. Try enabling period calculation");
+			return false;
 		} else {
 			return true;
 		}
 	}
 
-	public void divide() {
+	public void divide(boolean periodEnabled) {
 
-		if (isDivisionPossible()) {
+		if (isDivisionPossible(periodEnabled)) {
 
 			String divisionResult = "";
 			String graficsResult = "";
@@ -68,21 +72,81 @@ public class LongDivider {
 				isFirst = true;
 			}
 
-			String formatReminder = tab(remainder, j + 1) + Long.toString(remainder);
-			String firstTab = repeatString(" ", Long.toString(dividend).length() - firstDividend.length());
-			if (remainder != 0) {
-				solution.append(dividend + "|" + divisor);
-				solution.append("\n" + firstDividend + firstTab + "|" + divisionResult);
-				solution.append(graficsResult);
-				solution.append("\n" + formatReminder);
-			} else {
-				solution.append(dividend + "|" + divisor);
-				solution.append("\n" + firstDividend + firstTab + "|" + divisionResult);
-				solution.append(graficsResult);
+			if (!periodEnabled) {
+
+				String formatReminder = tab(remainder, j + 1) + Long.toString(remainder);
+				String firstTab = repeatString(" ", Long.toString(dividend).length() - firstDividend.length());
+				if (remainder != 0) {
+					solution.append(dividend + "|" + divisor);
+					solution.append("\n" + firstDividend + firstTab + "|" + divisionResult);
+					solution.append(graficsResult);
+					solution.append("\n" + formatReminder);
+				} else {
+					solution.append(dividend + "|" + divisor);
+					solution.append("\n" + firstDividend + firstTab + "|" + divisionResult);
+					solution.append(graficsResult);
+
+				}
+			} else if (periodEnabled) {
+				if (remainder != 0) {
+					divisionResult += ".";
+				}
+				boolean isPeriod = false;
+				long[] reminderArray = new long[PERIOD_CALCULATION_LIMIT];
+				int fraction = 0;
+				int i = 0;
+				int periodIndex = 0;
+				while (remainder != 0 && fraction < PERIOD_CALCULATION_LIMIT && !isPeriod) {
+					for (int k = 0; k < reminderArray.length; k++) {
+						if (remainder == reminderArray[k]) {
+							isPeriod = true;
+							periodIndex = k - 1;
+							break;
+						}
+					}
+					if (temporaryDividend / divisor > 0) {
+						tempNum = (temporaryDividend / divisor) * divisor;
+						formatTempDividend = "\n" + tab(temporaryDividend, j) + " " + temporaryDividend;
+						formatTempNumb = "\n" + tab(tempNum, j) + "-" + tempNum;
+						formatDelimiter = "\n" + tab(tempNum, j) + " " + "---";
+						graficsResult += formatTempDividend + formatTempNumb + formatDelimiter;
+					}
+					reminderArray[i] = remainder;
+					remainder = temporaryDividend % divisor;
+					if (isPeriod == false) {
+						divisionResult += temporaryDividend / divisor;
+						temporaryDividend = remainder * 10;
+						fraction++;
+						i++;
+						j++;
+					}
+				}
+
+				String formatReminder = tab(remainder, j + 1) + Long.toString(remainder);
+				String firstTab = repeatString(" ", Long.toString(dividend).length() - firstDividend.length());
+				if (isPeriod && remainder != 0) {
+					solution.append(dividend + "|" + divisor);
+					solution.append(
+							"\n" + firstDividend + firstTab + "|" + formatPeriodResult(periodIndex, divisionResult));
+					solution.append(graficsResult);
+					solution.append("\n" + formatReminder);
+				} else {
+					solution.append(dividend + "|" + divisor);
+					solution.append("\n" + firstDividend + firstTab + "|" + divisionResult);
+					solution.append(graficsResult);
+				}
 
 			}
-
 		}
+	}
+
+	public static String formatPeriodResult(int index, String res) {
+		int dotIndex = res.indexOf(".");
+		String bSubStr = res.substring(0, index + dotIndex + 2);
+		String eSubStr = res.substring(index + dotIndex + 2, res.length());
+		bSubStr += "(";
+		eSubStr += ")";
+		return bSubStr + eSubStr;
 	}
 
 	private long[] numberToArray(long num) {
