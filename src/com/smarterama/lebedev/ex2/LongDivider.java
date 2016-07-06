@@ -4,21 +4,22 @@ public class LongDivider {
 
 	private long dividend;
 	private long divisor;
-	private String solution = "";
+	private StringBuilder solution;
 
 	public LongDivider(long dividend, long divisor) {
 
 		this.dividend = dividend;
 		this.divisor = divisor;
+		solution = new StringBuilder();
 
 	}
 
 	private boolean isDivisionPossible() {
 		if (divisor == 0) {
-			solution += "You cannot divide by 0!";
+			solution.append("You cannot divide by 0!");
 			return false;
 		} else if (dividend < 0 || divisor < 0) {
-			solution += "Division of only possitive numbers is supported!";
+			solution.append("Division of only possitive numbers is supported!");
 			return false;
 		} else {
 			return true;
@@ -70,14 +71,14 @@ public class LongDivider {
 			String formatReminder = tab(remainder, j + 1) + Long.toString(remainder);
 			String firstTab = repeatString(" ", Long.toString(dividend).length() - firstDividend.length());
 			if (remainder != 0) {
-				solution += (dividend + "|" + divisor);
-				solution += ("\n" + firstDividend + firstTab + "|" + divisionResult);
-				solution += (graficsResult);
-				solution += ("\n" + formatReminder);
+				solution.append(dividend + "|" + divisor);
+				solution.append("\n" + firstDividend + firstTab + "|" + divisionResult);
+				solution.append(graficsResult);
+				solution.append("\n" + formatReminder);
 			} else {
-				solution += (dividend + "|" + divisor);
-				solution += ("\n" + firstDividend + firstTab + "|" + divisionResult);
-				solution += (graficsResult);
+				solution.append(dividend + "|" + divisor);
+				solution.append("\n" + firstDividend + firstTab + "|" + divisionResult);
+				solution.append(graficsResult);
 
 			}
 
@@ -113,9 +114,9 @@ public class LongDivider {
 	}
 
 	public String getSolution() {
-		if (solution.isEmpty()) {
+		if (String.valueOf(solution).equals("")) {
 			return String.valueOf("You need to calculated first. Use divide() method!");
 		}
-		return solution;
+		return String.valueOf(solution);
 	}
 }
