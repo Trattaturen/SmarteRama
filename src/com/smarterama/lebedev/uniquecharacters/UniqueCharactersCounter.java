@@ -1,7 +1,9 @@
 package com.smarterama.lebedev.uniquecharacters;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class UniqueCharactersCounter {
 
@@ -15,13 +17,13 @@ public class UniqueCharactersCounter {
 		}
 
 		System.out.println("Not in map");
-		String uniqueCharacters = "";
+		Set<Character> uniqueCharacters = new HashSet<Character>();
+		
+		//String uniqueCharacters = "";
 		for (int i = 0; i < initialText.length(); i++) {
-			if (!uniqueCharacters.contains(String.valueOf(initialText.charAt(i)))) {
-				uniqueCharacters += initialText.charAt(i);
-			}
+			uniqueCharacters.add(initialText.charAt(i));
 		}
-		int result = uniqueCharacters.length();
+		int result = uniqueCharacters.size();
 		map.put(initialText.hashCode(), result);
 
 		return result;
