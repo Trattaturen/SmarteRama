@@ -7,13 +7,13 @@ import java.util.Set;
 
 public class UniqueCharactersCounter {
 
-	private Map<Integer, Integer> previousResults = new HashMap<Integer, Integer>();
+	private Map<String, Integer> previousResults = new HashMap<String, Integer>();
 
 	public int countUniqueCharacters(String initialText) {
 
-		if (previousResults.containsKey(initialText.hashCode())) {
+		if (previousResults.containsKey(initialText)) {
 			System.out.println("Got from map");
-			return previousResults.get(initialText.hashCode());
+			return previousResults.get(initialText);
 		}
 
 		System.out.println("Not in map");
@@ -23,7 +23,7 @@ public class UniqueCharactersCounter {
 			uniqueCharacters.add(initialText.charAt(i));
 		}
 		int result = uniqueCharacters.size();
-		previousResults.put(initialText.hashCode(), result);
+		previousResults.put(initialText, result);
 
 		return result;
 
