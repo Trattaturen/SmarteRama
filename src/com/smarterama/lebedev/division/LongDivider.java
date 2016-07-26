@@ -1,4 +1,4 @@
-package com.smarterama.lebedev.ex2;
+package com.smarterama.lebedev.division;
 
 public class LongDivider {
 

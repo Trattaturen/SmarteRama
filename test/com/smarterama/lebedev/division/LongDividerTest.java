@@ -1,7 +1,9 @@
-package com.smarterama.lebedev.ex2;
+package com.smarterama.lebedev.division;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import com.smarterama.lebedev.division.LongDivider;
 
 public class LongDividerTest {
 
@@ -16,6 +18,7 @@ public class LongDividerTest {
 				divider.getSolution());
 
 	}
+
 	@Test
 	public void testDivide_NoPeriod1() {
 		divider = new LongDivider(788, 22);
@@ -33,13 +36,14 @@ public class LongDividerTest {
 				divider.getSolution());
 
 	}
-	
+
 	@Test
 	public void testDivide_NoPeriod2() {
 		divider = new LongDivider(12345, 7);
 		divider.divide(false);
 		Assert.assertEquals(
-				"12345|7\n12   |1763\n-7\n ---\n 53\n-49\n ---\n  44\n -42\n  ---\n   25\n  -21\n   ---\n     4", divider.getSolution());
+				"12345|7\n12   |1763\n-7\n ---\n 53\n-49\n ---\n  44\n -42\n  ---\n   25\n  -21\n   ---\n     4",
+				divider.getSolution());
 
 	}
 
@@ -52,7 +56,7 @@ public class LongDividerTest {
 				divider.getSolution());
 
 	}
-	
+
 	@Test
 	public void testDivide_NoPeriod3() {
 		divider = new LongDivider(1460613045640559889L, 13);
@@ -70,7 +74,7 @@ public class LongDividerTest {
 		Assert.assertEquals("100000|2\n10    |50000\n-10\n ---", divider.getSolution());
 
 	}
-	
+
 	@Test
 	public void testDivide_NoPeriod4() {
 		divider = new LongDivider(100000, 2);
@@ -78,31 +82,36 @@ public class LongDividerTest {
 		Assert.assertEquals("100000|2\n10    |50000\n-10\n ---", divider.getSolution());
 
 	}
-	
+
 	@Test
 	public void testDivide_Period5() {
 		divider = new LongDivider(25, 39);
 		divider.divide(true);
-		Assert.assertEquals("25|39\n25|0.(641025)\n 250\n-234\n ---\n 160\n-156\n ---\n   40\n  -39\n   ---\n    100\n    -78\n     ---\n     220\n    -195\n     ---\n      250\n     -234\n      ---\n       16", divider.getSolution());
+		Assert.assertEquals(
+				"25|39\n25|0.(641025)\n 250\n-234\n ---\n 160\n-156\n ---\n   40\n  -39\n   ---\n    100\n    -78\n     ---\n     220\n    -195\n     ---\n      250\n     -234\n      ---\n       16",
+				divider.getSolution());
 
 	}
-	
+
 	@Test
 	public void testDivide_NoPeriod5() {
 		divider = new LongDivider(25, 39);
 		divider.divide(false);
-		Assert.assertEquals("Dividend is less then divisor. Result is always 0. Try enabling period calculation", divider.getSolution());
+		Assert.assertEquals("Dividend is less then divisor. Result is always 0. Try enabling period calculation",
+				divider.getSolution());
 
 	}
-	
+
 	@Test
 	public void testDivide_Period6() {
 		divider = new LongDivider(17, 11);
 		divider.divide(true);
-		Assert.assertEquals("17|11\n17|1.(54)\n -11\n ---\n 60\n-55\n ---\n  50\n -44\n  ---\n   60\n  -55\n   ---\n    5", divider.getSolution());
+		Assert.assertEquals(
+				"17|11\n17|1.(54)\n-11\n ---\n 60\n-55\n ---\n  50\n -44\n  ---\n   60\n  -55\n   ---\n    5",
+				divider.getSolution());
 
 	}
-	
+
 	@Test
 	public void testDivide_NoPeriod6() {
 		divider = new LongDivider(17, 11);
@@ -110,15 +119,17 @@ public class LongDividerTest {
 		Assert.assertEquals("17|11\n17|1\n-11\n ---\n  6", divider.getSolution());
 
 	}
-	
+
 	@Test
 	public void testDivide_Period7() {
 		divider = new LongDivider(100, 67);
 		divider.divide(true);
-		Assert.assertEquals("100| 67\n100|1.4925373134\n-67\n ---\n 330\n-268\n ---\n  620\n -603\n  ---\n   170\n  -134\n   ---\n    360\n   -335\n    ---\n     250\n    -201\n     ---\n      490\n     -469\n      ---\n       210\n      -201\n       ---\n         90\n        -67\n         ---\n         230\n        -201\n         ---\n          290\n         -268\n          ---", divider.getSolution());
+		Assert.assertEquals(
+				"100|67\n100|1.4925373134\n-67\n ---\n 330\n-268\n ---\n  620\n -603\n  ---\n   170\n  -134\n   ---\n    360\n   -335\n    ---\n     250\n    -201\n     ---\n      490\n     -469\n      ---\n       210\n      -201\n       ---\n         90\n        -67\n         ---\n         230\n        -201\n         ---\n          290\n         -268\n          ---",
+				divider.getSolution());
 
 	}
-	
+
 	@Test
 	public void testDivide_NoPeriod7() {
 		divider = new LongDivider(100, 67);

@@ -1,4 +1,4 @@
-package com.smarterama.lebedev.ex1;
+package com.smarterama.lebedev.anagram;
 
 import java.util.Scanner;
 
