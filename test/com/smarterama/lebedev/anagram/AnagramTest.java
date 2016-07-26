@@ -1,7 +1,9 @@
-package com.smarterama.lebedev.ex1;
+package com.smarterama.lebedev.anagram;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import com.smarterama.lebedev.anagram.Anagram;
 
 public class AnagramTest {
 
